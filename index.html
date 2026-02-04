@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
@@ -29,15 +29,50 @@
       <div class="loader-content">
         <div class="loader-bus">
           <svg viewBox="0 0 80 40" fill="none" class="bus-icon">
-            <rect x="5" y="8" width="55" height="24" rx="4" fill="currentColor"/>
-            <rect x="60" y="12" width="12" height="16" rx="2" fill="currentColor"/>
-            <rect x="10" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
-            <rect x="26" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
-            <rect x="42" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
-            <circle cx="18" cy="32" r="5" fill="var(--color-gray-600)"/>
-            <circle cx="52" cy="32" r="5" fill="var(--color-gray-600)"/>
-            <circle cx="18" cy="32" r="2" fill="var(--color-bg)"/>
-            <circle cx="52" cy="32" r="2" fill="var(--color-bg)"/>
+            <rect
+              x="5"
+              y="8"
+              width="55"
+              height="24"
+              rx="4"
+              fill="currentColor"
+            />
+            <rect
+              x="60"
+              y="12"
+              width="12"
+              height="16"
+              rx="2"
+              fill="currentColor"
+            />
+            <rect
+              x="10"
+              y="12"
+              width="12"
+              height="10"
+              rx="2"
+              fill="var(--color-bg)"
+            />
+            <rect
+              x="26"
+              y="12"
+              width="12"
+              height="10"
+              rx="2"
+              fill="var(--color-bg)"
+            />
+            <rect
+              x="42"
+              y="12"
+              width="12"
+              height="10"
+              rx="2"
+              fill="var(--color-bg)"
+            />
+            <circle cx="18" cy="32" r="5" fill="var(--color-gray-600)" />
+            <circle cx="52" cy="32" r="5" fill="var(--color-gray-600)" />
+            <circle cx="18" cy="32" r="2" fill="var(--color-bg)" />
+            <circle cx="52" cy="32" r="2" fill="var(--color-bg)" />
           </svg>
           <div class="road-line"></div>
         </div>
@@ -52,7 +87,11 @@
     <nav class="nav" id="nav">
       <div class="nav-container">
         <a href="#" class="nav-logo">
-          <img src="res/sawari_w.png" alt="Sawari" class="logo-img logo-light" />
+          <img
+            src="res/sawari_w.png"
+            alt="Sawari"
+            class="logo-img logo-light"
+          />
           <img src="res/sawari_b.png" alt="Sawari" class="logo-img logo-dark" />
         </a>
 
@@ -64,18 +103,41 @@
         </div>
 
         <div class="nav-actions">
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-            <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"/>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <svg
+              class="theme-icon sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
             </svg>
-            <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            <svg
+              class="theme-icon moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
           <a href="app.html" class="nav-cta">
             <span>Find Route</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
@@ -122,14 +184,19 @@
           </h1>
 
           <p class="hero-description">
-            From your doorstep to your destination. Find the nearest bus stop, 
+            From your doorstep to your destination. Find the nearest bus stop,
             the right bus route, and step-by-step directions — all in one place.
           </p>
 
           <div class="hero-actions">
             <a href="#solution" class="btn btn-primary">
               <span>See How It Works</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
             </a>
@@ -148,7 +215,13 @@
               <span class="stat-label">Bus Stops</span>
             </div>
             <div class="hero-stat">
-              <span class="stat-value" data-prefix="<" data-count="5" data-suffix="min">0</span>
+              <span
+                class="stat-value"
+                data-prefix="<"
+                data-count="5"
+                data-suffix="min"
+                >0</span
+              >
               <span class="stat-label">Find Route</span>
             </div>
           </div>
@@ -163,9 +236,16 @@
                 <div class="app-header">
                   <span class="app-title">Sawari</span>
                   <div class="app-location">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                      />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
                     <span>Kathmandu</span>
                   </div>
@@ -193,7 +273,9 @@
                     <div class="step-icon bus">🚌</div>
                     <div class="step-info">
                       <span class="step-title">Take Bus #12</span>
-                      <span class="step-detail">Kalanki → Ratnapark · 25 min</span>
+                      <span class="step-detail"
+                        >Kalanki → Ratnapark · 25 min</span
+                      >
                     </div>
                   </div>
                   <div class="route-step">
@@ -230,8 +312,8 @@
           <span class="section-index">01</span>
           <h2 class="section-title">The Problem</h2>
           <p class="section-subtitle">
-            Navigating public transport in Nepal shouldn't feel like solving a puzzle. 
-            Yet for millions, it's a daily struggle.
+            Navigating public transport in Nepal shouldn't feel like solving a
+            puzzle. Yet for millions, it's a daily struggle.
           </p>
         </div>
 
@@ -241,31 +323,109 @@
               <svg viewBox="0 0 400 300" fill="none" class="confusion-svg">
                 <!-- Person looking confused -->
                 <g class="person-confused" transform="translate(180, 100)">
-                  <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <path d="M12 18 Q20 12 28 18" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <circle cx="14" cy="14" r="2" fill="currentColor"/>
-                  <circle cx="26" cy="14" r="2" fill="currentColor"/>
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="18"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M12 18 Q20 12 28 18"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <circle cx="14" cy="14" r="2" fill="currentColor" />
+                  <circle cx="26" cy="14" r="2" fill="currentColor" />
                   <!-- Question marks -->
-                  <text x="-20" y="-10" class="question-mark q1" fill="currentColor" font-size="24">?</text>
-                  <text x="45" y="0" class="question-mark q2" fill="currentColor" font-size="20">?</text>
-                  <text x="10" y="-30" class="question-mark q3" fill="currentColor" font-size="28">?</text>
+                  <text
+                    x="-20"
+                    y="-10"
+                    class="question-mark q1"
+                    fill="currentColor"
+                    font-size="24"
+                  >
+                    ?
+                  </text>
+                  <text
+                    x="45"
+                    y="0"
+                    class="question-mark q2"
+                    fill="currentColor"
+                    font-size="20"
+                  >
+                    ?
+                  </text>
+                  <text
+                    x="10"
+                    y="-30"
+                    class="question-mark q3"
+                    fill="currentColor"
+                    font-size="28"
+                  >
+                    ?
+                  </text>
                 </g>
-                
+
                 <!-- Multiple route lines (confusing) -->
                 <g class="route-lines">
-                  <path d="M50 200 Q100 100 180 150" stroke="var(--color-accent)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
-                  <path d="M50 220 Q150 180 200 200" stroke="var(--color-gray-500)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
-                  <path d="M70 180 Q120 220 180 180" stroke="var(--color-gray-400)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
-                  <path d="M220 150 Q280 100 350 120" stroke="var(--color-gray-500)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
-                  <path d="M220 170 Q300 200 350 150" stroke="var(--color-gray-400)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                  <path
+                    d="M50 200 Q100 100 180 150"
+                    stroke="var(--color-accent)"
+                    stroke-width="2"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                  />
+                  <path
+                    d="M50 220 Q150 180 200 200"
+                    stroke="var(--color-gray-500)"
+                    stroke-width="2"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                  />
+                  <path
+                    d="M70 180 Q120 220 180 180"
+                    stroke="var(--color-gray-400)"
+                    stroke-width="2"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                  />
+                  <path
+                    d="M220 150 Q280 100 350 120"
+                    stroke="var(--color-gray-500)"
+                    stroke-width="2"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                  />
+                  <path
+                    d="M220 170 Q300 200 350 150"
+                    stroke="var(--color-gray-400)"
+                    stroke-width="2"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                  />
                 </g>
 
                 <!-- Bus stops scattered -->
-                <circle cx="50" cy="200" r="8" fill="var(--color-accent)" opacity="0.8"/>
-                <circle cx="350" cy="130" r="8" fill="var(--color-accent)" opacity="0.8"/>
-                <circle cx="100" cy="250" r="6" fill="var(--color-gray-500)"/>
-                <circle cx="300" cy="220" r="6" fill="var(--color-gray-500)"/>
-                <circle cx="150" cy="80" r="6" fill="var(--color-gray-500)"/>
+                <circle
+                  cx="50"
+                  cy="200"
+                  r="8"
+                  fill="var(--color-accent)"
+                  opacity="0.8"
+                />
+                <circle
+                  cx="350"
+                  cy="130"
+                  r="8"
+                  fill="var(--color-accent)"
+                  opacity="0.8"
+                />
+                <circle cx="100" cy="250" r="6" fill="var(--color-gray-500)" />
+                <circle cx="300" cy="220" r="6" fill="var(--color-gray-500)" />
+                <circle cx="150" cy="80" r="6" fill="var(--color-gray-500)" />
               </svg>
             </div>
           </div>
@@ -275,24 +435,30 @@
               <div class="problem-stat">
                 <span class="problem-number" data-count="70">0</span>
                 <span class="problem-unit">%</span>
-                <span class="problem-label">of commuters struggle to find correct bus routes</span>
+                <span class="problem-label"
+                  >of commuters struggle to find correct bus routes</span
+                >
               </div>
               <div class="problem-stat">
                 <span class="problem-number" data-count="30">0</span>
                 <span class="problem-unit">min</span>
-                <span class="problem-label">average time wasted asking for directions</span>
+                <span class="problem-label"
+                  >average time wasted asking for directions</span
+                >
               </div>
               <div class="problem-stat">
                 <span class="problem-number" data-count="0">0</span>
                 <span class="problem-unit"></span>
-                <span class="problem-label">digital solutions for Nepal's bus network</span>
+                <span class="problem-label"
+                  >digital solutions for Nepal's bus network</span
+                >
               </div>
             </div>
 
             <blockquote class="problem-quote">
               <p>
-                "Which bus goes to Bouddha? Where do I get off? 
-                Why isn't there an app for this?"
+                "Which bus goes to Bouddha? Where do I get off? Why isn't there
+                an app for this?"
               </p>
               <cite>— Every commuter in Kathmandu</cite>
             </blockquote>
@@ -313,7 +479,8 @@
           <span class="section-index">02</span>
           <h2 class="section-title">How It Works</h2>
           <p class="section-subtitle">
-            Three simple steps to get you from anywhere to anywhere using public transport.
+            Three simple steps to get you from anywhere to anywhere using public
+            transport.
           </p>
         </div>
 
@@ -323,9 +490,20 @@
             <div class="step-visual">
               <div class="step-icon-large">
                 <svg viewBox="0 0 80 80" fill="none">
-                  <circle cx="40" cy="40" r="35" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <path d="M40 20v40M20 40h40" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="40" cy="40" r="8" fill="var(--color-accent)"/>
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="35"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M40 20v40M20 40h40"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle cx="40" cy="40" r="8" fill="var(--color-accent)" />
                 </svg>
               </div>
             </div>
@@ -333,8 +511,8 @@
               <div class="step-number">01</div>
               <h3 class="step-title">Enter Your Location</h3>
               <p class="step-desc">
-                Type your starting point and destination. Sawari finds the nearest 
-                bus stops automatically using GPS or manual input.
+                Type your starting point and destination. Sawari finds the
+                nearest bus stops automatically using GPS or manual input.
               </p>
               <ul class="step-features">
                 <li>GPS auto-detection</li>
@@ -355,12 +533,56 @@
             <div class="step-visual">
               <div class="step-icon-large">
                 <svg viewBox="0 0 80 80" fill="none">
-                  <rect x="15" y="25" width="50" height="30" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <circle cx="25" cy="55" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <circle cx="55" cy="55" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <rect x="20" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
-                  <rect x="35" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
-                  <rect x="50" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
+                  <rect
+                    x="15"
+                    y="25"
+                    width="50"
+                    height="30"
+                    rx="5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <circle
+                    cx="25"
+                    cy="55"
+                    r="6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <circle
+                    cx="55"
+                    cy="55"
+                    r="6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <rect
+                    x="20"
+                    y="30"
+                    width="10"
+                    height="8"
+                    rx="1"
+                    fill="var(--color-accent)"
+                  />
+                  <rect
+                    x="35"
+                    y="30"
+                    width="10"
+                    height="8"
+                    rx="1"
+                    fill="var(--color-accent)"
+                  />
+                  <rect
+                    x="50"
+                    y="30"
+                    width="10"
+                    height="8"
+                    rx="1"
+                    fill="var(--color-accent)"
+                  />
                 </svg>
               </div>
             </div>
@@ -368,7 +590,7 @@
               <div class="step-number">02</div>
               <h3 class="step-title">Get Bus Routes</h3>
               <p class="step-desc">
-                See available bus numbers, routes, and estimated travel times. 
+                See available bus numbers, routes, and estimated travel times.
                 Multiple options sorted by fastest or fewest transfers.
               </p>
               <ul class="step-features">
@@ -390,11 +612,27 @@
             <div class="step-visual">
               <div class="step-icon-large">
                 <svg viewBox="0 0 80 80" fill="none">
-                  <path d="M40 10 L40 70" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
-                  <circle cx="40" cy="15" r="6" fill="var(--color-accent)"/>
-                  <circle cx="40" cy="40" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-                  <circle cx="40" cy="65" r="6" fill="var(--color-accent)"/>
-                  <path d="M20 40 L35 40M45 40 L60 40" stroke="currentColor" stroke-width="2"/>
+                  <path
+                    d="M40 10 L40 70"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-dasharray="4 4"
+                  />
+                  <circle cx="40" cy="15" r="6" fill="var(--color-accent)" />
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <circle cx="40" cy="65" r="6" fill="var(--color-accent)" />
+                  <path
+                    d="M20 40 L35 40M45 40 L60 40"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
                 </svg>
               </div>
             </div>
@@ -402,8 +640,8 @@
               <div class="step-number">03</div>
               <h3 class="step-title">Follow Directions</h3>
               <p class="step-desc">
-                Step-by-step navigation from walking to the bus stop, 
-                which bus to take, where to get off, and how to reach your destination.
+                Step-by-step navigation from walking to the bus stop, which bus
+                to take, where to get off, and how to reach your destination.
               </p>
               <ul class="step-features">
                 <li>Turn-by-turn guidance</li>
@@ -435,36 +673,52 @@
         <div class="features-grid">
           <div class="feature-card feature-main">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="24" cy="24" r="20"/>
-                <path d="M24 14v10l6 6"/>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="24" cy="24" r="20" />
+                <path d="M24 14v10l6 6" />
               </svg>
             </div>
             <h3 class="feature-title">Real-Time Route Planning</h3>
             <p class="feature-desc">
-              Get instant route suggestions based on your location and destination 
-              with accurate travel time estimates.
+              Get instant route suggestions based on your location and
+              destination with accurate travel time estimates.
             </p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M24 4v8M24 36v8M4 24h8M36 24h8"/>
-                <circle cx="24" cy="24" r="8"/>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M24 4v8M24 36v8M4 24h8M36 24h8" />
+                <circle cx="24" cy="24" r="8" />
               </svg>
             </div>
             <h3 class="feature-title">GPS Integration</h3>
             <p class="feature-desc">
-              Automatic location detection to find the nearest bus stops around you.
+              Automatic location detection to find the nearest bus stops around
+              you.
             </p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="8" y="8" width="32" height="32" rx="4"/>
-                <path d="M8 18h32M18 18v22"/>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="8" y="8" width="32" height="32" rx="4" />
+                <path d="M8 18h32M18 18v22" />
               </svg>
             </div>
             <h3 class="feature-title">Offline Maps</h3>
@@ -475,22 +729,41 @@
 
           <div class="feature-card">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 24h24M24 12v24"/>
-                <circle cx="24" cy="24" r="20"/>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 24h24M24 12v24" />
+                <circle cx="24" cy="24" r="20" />
               </svg>
             </div>
             <h3 class="feature-title">Multiple Routes</h3>
             <p class="feature-desc">
-              Compare different route options with transfer points and walking distance.
+              Compare different route options with transfer points and walking
+              distance.
             </p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="24" cy="24" r="16"/>
-                <text x="24" y="30" text-anchor="middle" font-size="16" fill="currentColor">₨</text>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="24" cy="24" r="16" />
+                <text
+                  x="24"
+                  y="30"
+                  text-anchor="middle"
+                  font-size="16"
+                  fill="currentColor"
+                >
+                  ₨
+                </text>
               </svg>
             </div>
             <h3 class="feature-title">Fare Estimation</h3>
@@ -501,14 +774,22 @@
 
           <div class="feature-card">
             <div class="feature-icon">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20"/>
-                <path d="M44 4L24 24"/>
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20"
+                />
+                <path d="M44 4L24 24" />
               </svg>
             </div>
             <h3 class="feature-title">Admin Route Mapping</h3>
             <p class="feature-desc">
-              Crowdsourced data collection by riding buses and marking real stops.
+              Crowdsourced data collection by riding buses and marking real
+              stops.
             </p>
           </div>
         </div>
@@ -522,7 +803,8 @@
           <span class="section-index">04</span>
           <h2 class="section-title">Technology</h2>
           <p class="section-subtitle">
-            Built with modern, open-source technologies for reliability and accessibility.
+            Built with modern, open-source technologies for reliability and
+            accessibility.
           </p>
         </div>
 
@@ -570,16 +852,26 @@
         <div class="cta-content">
           <h2 class="cta-title">Ready to Navigate?</h2>
           <p class="cta-subtitle">
-            Start your journey with Sawari. No more confusion, no more wasted time.
+            Start your journey with Sawari. No more confusion, no more wasted
+            time.
           </p>
           <div class="cta-actions">
             <a href="app.html" class="btn btn-primary btn-large">
               <span>Launch App</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a href="https://github.com" class="btn btn-ghost btn-large" target="_blank">
+            <a
+              href="https://github.com"
+              class="btn btn-ghost btn-large"
+              target="_blank"
+            >
               <span>View on GitHub</span>
             </a>
           </div>
@@ -592,9 +884,19 @@
       <div class="footer-container">
         <div class="footer-main">
           <div class="footer-brand">
-            <img src="res/sawari_w.png" alt="Sawari" class="footer-logo logo-light" />
-            <img src="res/sawari_b.png" alt="Sawari" class="footer-logo logo-dark" />
-            <p class="footer-tagline">Navigate Nepal's public transport with ease.</p>
+            <img
+              src="res/sawari_w.png"
+              alt="Sawari"
+              class="footer-logo logo-light"
+            />
+            <img
+              src="res/sawari_b.png"
+              alt="Sawari"
+              class="footer-logo logo-dark"
+            />
+            <p class="footer-tagline">
+              Navigate Nepal's public transport with ease.
+            </p>
           </div>
           <div class="footer-links">
             <div class="footer-column">
