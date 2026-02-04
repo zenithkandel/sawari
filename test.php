@@ -9,7 +9,7 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -237,8 +237,13 @@
             border-radius: 50%;
         }
 
-        .coord-marker.start { background: var(--success); }
-        .coord-marker.end { background: var(--danger); }
+        .coord-marker.start {
+            background: var(--success);
+        }
+
+        .coord-marker.end {
+            background: var(--danger);
+        }
 
         .coord-label {
             font-size: 13px;
@@ -376,14 +381,14 @@
             background-color: white;
             transition: 0.3s;
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .toggle-switch input:checked + .toggle-slider {
+        .toggle-switch input:checked+.toggle-slider {
             background-color: var(--primary);
         }
 
-        .toggle-switch input:checked + .toggle-slider:before {
+        .toggle-switch input:checked+.toggle-slider:before {
             transform: translateX(22px);
         }
 
@@ -728,7 +733,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -832,14 +839,16 @@
 
                     <!-- Custom Paths Tab -->
                     <div id="custom-tab" class="tab-content">
-                        <label class="file-upload" id="fileUploadArea">
-                            <input type="file" id="jsonFileInput" accept=".json" onchange="handleFileUpload(event)">
+                        <div class="file-upload" id="fileUploadArea"
+                            onclick="document.getElementById('jsonFileInput').click()">
+                            <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
                             <div class="file-upload-icon">📂</div>
                             <div class="file-upload-text">
                                 <strong>Click to upload</strong> or drag & drop<br>
                                 <small>JSON file with path data</small>
                             </div>
-                        </label>
+                        </div>
+                        <div id="fileStatus" style="margin-top: 8px; font-size: 12px; color: var(--gray-500);"></div>
 
                         <div class="form-group" style="margin-top: 16px;">
                             <label class="form-label">Select Path</label>
@@ -882,7 +891,8 @@
     ]
   }]
 }</pre>
-                            <button class="btn btn-secondary btn-sm" style="margin-top: 12px;" onclick="loadSampleJSON()">
+                            <button class="btn btn-secondary btn-sm" style="margin-top: 12px;"
+                                onclick="loadSampleJSON()">
                                 Load Sample Data
                             </button>
                         </div>
@@ -895,7 +905,8 @@
         <div class="map-container">
             <div class="map-header">
                 <div class="map-title">
-                    <img src="https://www.openstreetmap.org/assets/osm_logo-d4979005d8a03d67bbf051b4e7e6ef1b26c6a34a5cd1b65908e2947c360ca391.svg" alt="OSM">
+                    <img src="https://www.openstreetmap.org/assets/osm_logo-d4979005d8a03d67bbf051b4e7e6ef1b26c6a34a5cd1b65908e2947c360ca391.svg"
+                        alt="OSM">
                     OpenStreetMap
                 </div>
             </div>
@@ -945,7 +956,7 @@
         ];
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initMap();
             setupDragDrop();
         });
@@ -953,7 +964,7 @@
         // Initialize Map
         function initMap() {
             map = L.map('map').setView([27.7172, 85.3240], 13);
-            
+
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
@@ -964,7 +975,7 @@
         function toggleRoadMode() {
             useRoadMode = document.getElementById('roadModeToggle').checked;
             const statusBadge = document.getElementById('modeStatus');
-            
+
             if (useRoadMode) {
                 statusBadge.className = 'status-badge roads';
                 statusBadge.innerHTML = '<span class="status-dot"></span><span>Following Roads</span>';
@@ -988,10 +999,10 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             event.target.classList.add('active');
             document.getElementById(tab + '-tab').classList.add('active');
-            
+
             setTimeout(() => map.invalidateSize(), 100);
         }
 
@@ -1048,7 +1059,7 @@
             // Update stats
             const distance = haversineDistance(lat1, lng1, lat2, lng2);
             const duration = Math.round((distance / 5) * 60); // Assuming 5 km/h walking speed
-            
+
             updateStats(distance.toFixed(2) + ' km', duration + ' min', '2');
         }
 
@@ -1068,7 +1079,7 @@
                 lineOptions: {
                     styles: [{ color: '#6366f1', weight: 5, opacity: 0.8 }]
                 },
-                createMarker: function(i, waypoint) {
+                createMarker: function (i, waypoint) {
                     const isStart = i === 0;
                     return createMarker(
                         [waypoint.latLng.lat, waypoint.latLng.lng],
@@ -1082,7 +1093,7 @@
                 })
             }).addTo(map);
 
-            routingControl.on('routesfound', function(e) {
+            routingControl.on('routesfound', function (e) {
                 showLoading(false);
                 const route = e.routes[0];
                 const distanceKm = (route.summary.totalDistance / 1000).toFixed(2);
@@ -1090,7 +1101,7 @@
                 updateStats(distanceKm + ' km', durationMin + ' min', '2');
             });
 
-            routingControl.on('routingerror', function() {
+            routingControl.on('routingerror', function () {
                 showLoading(false);
                 showError('Could not calculate road route. Try straight line mode.');
             });
@@ -1143,7 +1154,7 @@
                 newyork: { lat1: 40.7580, lng1: -73.9855, lat2: 40.7484, lng2: -73.9857 },
                 london: { lat1: 51.5014, lng1: -0.1419, lat2: 51.5007, lng2: -0.1246 }
             };
-            
+
             const s = samples[city];
             document.getElementById('lat1').value = s.lat1;
             document.getElementById('lng1').value = s.lng1;
@@ -1160,7 +1171,7 @@
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     processPathsData(data);
@@ -1215,7 +1226,7 @@
 
             clearCustomPaths();
             const path = customPathsData.paths[parseInt(value)];
-            
+
             if (!path || !path.coordinates || path.coordinates.length < 2) {
                 showError('Invalid path data.');
                 return;
@@ -1283,7 +1294,7 @@
 
         async function drawRoadPath(coords, color, pathName, fitBounds) {
             showLoading(true);
-            
+
             // Build waypoints string for OSRM
             const waypointsStr = coords.map(c => `${c.lng},${c.lat}`).join(';');
             const url = `https://router.project-osrm.org/route/v1/foot/${waypointsStr}?overview=full&geometries=geojson`;
@@ -1342,7 +1353,7 @@
         function updateLegend() {
             const legend = document.getElementById('pathLegend');
             legend.innerHTML = '';
-            
+
             customPathsData.paths.forEach((path, i) => {
                 const item = document.createElement('div');
                 item.className = 'legend-item';
@@ -1399,7 +1410,7 @@
         // Drag & Drop
         function setupDragDrop() {
             const area = document.getElementById('fileUploadArea');
-            
+
             area.addEventListener('dragover', e => {
                 e.preventDefault();
                 area.style.borderColor = 'var(--primary)';
@@ -1413,7 +1424,7 @@
             area.addEventListener('drop', e => {
                 e.preventDefault();
                 area.style.borderColor = 'var(--gray-200)';
-                
+
                 const file = e.dataTransfer.files[0];
                 if (file && file.name.endsWith('.json')) {
                     const reader = new FileReader();
@@ -1434,7 +1445,7 @@
             let total = 0;
             const sorted = [...coords].sort((a, b) => a.serial - b.serial);
             for (let i = 0; i < sorted.length - 1; i++) {
-                total += haversineDistance(sorted[i].lat, sorted[i].lng, sorted[i+1].lat, sorted[i+1].lng);
+                total += haversineDistance(sorted[i].lat, sorted[i].lng, sorted[i + 1].lat, sorted[i + 1].lng);
             }
             return total;
         }
@@ -1443,8 +1454,8 @@
             const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLng = (lng2 - lng1) * Math.PI / 180;
-            const a = Math.sin(dLat/2) ** 2 + Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLng/2) ** 2;
-            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         }
 
         function updateStats(distance, duration, points) {
