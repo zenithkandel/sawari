@@ -1025,7 +1025,7 @@ img {
 }
 
 .step-icon {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1;
     width: 44px;
     height: 44px;
@@ -1035,6 +1035,27 @@ img {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     flex-shrink: 0;
+}
+
+.step-icon i {
+    --fa-primary-color: var(--color-white);
+    --fa-secondary-color: var(--color-accent);
+    --fa-secondary-opacity: 0.7;
+}
+
+.step-icon.walk i {
+    --fa-primary-color: #60a5fa;
+    --fa-secondary-color: #93c5fd;
+}
+
+.step-icon.bus i {
+    --fa-primary-color: #f59e0b;
+    --fa-secondary-color: #fbbf24;
+}
+
+.step-icon.destination i {
+    --fa-primary-color: #10b981;
+    --fa-secondary-color: #34d399;
 }
 
 .step-info {
@@ -1573,6 +1594,18 @@ img {
     margin-bottom: var(--space-3);
 }
 
+.tech-icon i {
+    --fa-primary-color: var(--color-accent);
+    --fa-secondary-color: var(--color-text-secondary);
+    --fa-secondary-opacity: 0.6;
+    transition: all var(--transition-base);
+}
+
+.tech-card:hover .tech-icon i {
+    --fa-secondary-opacity: 1;
+    transform: scale(1.1);
+}
+
 .tech-name {
     font-size: var(--text-sm);
     font-weight: 600;
@@ -1727,6 +1760,23 @@ img {
 .footer-bottom p {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
+}
+
+.footer-bottom p i.fa-heart {
+    color: #ef4444;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
 }
 
 /* =====================================================

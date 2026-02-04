@@ -1,4 +1,4 @@
-# Sawari 🚌
+# Sawari
 
 A public transport route planner for navigating bus routes in Nepal.
 
@@ -6,10 +6,10 @@ A public transport route planner for navigating bus routes in Nepal.
 
 Sawari helps users find the best public transport route between two locations. Enter your starting point and destination, and the app will guide you through:
 
-- 🚶 Walking to the nearest bus stop
-- 🚌 Which bus to take
-- 📍 Where to get off
-- 🚶 Walking to your final destination
+- Walking to the nearest bus stop
+- Which bus to take
+- Where to get off
+- Walking to your final destination
 
 ## Features
 
@@ -59,4 +59,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with ❤️ for better public transportation in Nepal
+Made with love for better public transportation in Nepal
