@@ -136,9 +136,20 @@
   <div class="selection-mode" id="selectionMode">
     <div class="selection-message">
       <i class="fa-solid fa-map-pin"></i>
-      <span>Tap on the map to select destination</span>
+      <span>Move the map to position the pin on your destination</span>
     </div>
-    <button class="cancel-selection" id="cancelSelection">Cancel</button>
+    <div class="selection-actions">
+      <button class="cancel-selection" id="cancelSelection">Cancel</button>
+      <button class="confirm-selection" id="confirmSelection">
+        <i class="fa-solid fa-check"></i> Confirm Location
+      </button>
+    </div>
+  </div>
+
+  <!-- Center Pin for Selection Mode -->
+  <div class="center-pin" id="centerPin">
+    <i class="fa-solid fa-location-dot center-pin-icon"></i>
+    <div class="center-pin-shadow"></div>
   </div>
 
   <!-- Loading Overlay -->

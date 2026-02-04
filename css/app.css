@@ -568,9 +568,9 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    padding: 16px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
-    z-index: 900;
+    padding: 100px 16px 16px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    z-index: 1100;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -617,6 +617,33 @@ body {
 
 .cancel-selection:hover {
     background: var(--gray-100);
+}
+
+.selection-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.confirm-selection {
+    padding: 12px 32px;
+    border: none;
+    background: var(--primary);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: background var(--transition), transform var(--transition);
+}
+
+.confirm-selection:hover {
+    background: var(--primary-dark);
+}
+
+.confirm-selection:active {
+    transform: scale(0.95);
 }
 
 /* =====================================================
@@ -806,6 +833,48 @@ body {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     margin-top: 4px;
+}
+
+/* Center pin for selection mode */
+.center-pin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 1050;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.center-pin.active {
+    opacity: 1;
+}
+
+.center-pin-icon {
+    font-size: 48px;
+    color: var(--danger);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    animation: pinBounce 1s ease-in-out infinite;
+}
+
+@keyframes pinBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.center-pin-shadow {
+    width: 20px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    margin: 4px auto 0;
+    animation: shadowPulse 1s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.25; }
+    50% { transform: scale(0.8); opacity: 0.4; }
 }
 
 /* =====================================================
