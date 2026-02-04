@@ -193,9 +193,16 @@ function setupEventListeners() {
     // Confirm destination selection
     elements.confirmSelection.addEventListener('click', confirmDestinationSelection);
 
+    // Handle suggestion clicks via event delegation
+    elements.suggestionsContainer.addEventListener('click', handleSuggestionClick);
+    elements.suggestionsContainer.addEventListener('mousedown', (e) => {
+        // Prevent blur from hiding suggestions before click registers
+        e.preventDefault();
+    });
+
     // Close suggestions when clicking outside
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-input-group')) {
+        if (!e.target.closest('.search-input-group') && !e.target.closest('.suggestions-container')) {
             hideSuggestions();
         }
     });
@@ -483,24 +490,30 @@ function renderSuggestions(locations, type) {
             </div>
         </div>
     `).join('');
+}
 
-    // Add click handlers
-    elements.suggestionsList.querySelectorAll('.suggestion-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const lat = parseFloat(item.dataset.lat);
-            const lng = parseFloat(item.dataset.lng);
-            const name = item.dataset.name;
-            const itemType = item.dataset.type;
+// Handle suggestion clicks via event delegation (more robust)
+function handleSuggestionClick(e) {
+    const item = e.target.closest('.suggestion-item');
+    if (!item) return;
 
-            if (itemType === 'start') {
-                setStartLocation(lat, lng, name);
-            } else {
-                setEndLocation(lat, lng, name);
-            }
+    e.preventDefault();
+    e.stopPropagation();
 
-            hideSuggestions();
-        });
-    });
+    const lat = parseFloat(item.dataset.lat);
+    const lng = parseFloat(item.dataset.lng);
+    const name = item.dataset.name;
+    const itemType = item.dataset.type;
+
+    console.log('Suggestion clicked:', { lat, lng, name, itemType });
+
+    if (itemType === 'start') {
+        setStartLocation(lat, lng, name);
+    } else {
+        setEndLocation(lat, lng, name);
+    }
+
+    hideSuggestions();
 }
 
 // =============================================================================
