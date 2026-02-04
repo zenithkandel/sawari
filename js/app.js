@@ -101,6 +101,7 @@ function cacheElements() {
     elements.startInput = document.getElementById('startInput');
     elements.destInput = document.getElementById('destInput');
     elements.useLocationBtn = document.getElementById('useLocationBtn');
+    elements.selectStartOnMapBtn = document.getElementById('selectStartOnMapBtn');
     elements.selectOnMapBtn = document.getElementById('selectOnMapBtn');
     elements.swapBtn = document.getElementById('swapBtn');
     elements.findRouteBtn = document.getElementById('findRouteBtn');
@@ -117,6 +118,7 @@ function cacheElements() {
     elements.zoomOutBtn = document.getElementById('zoomOutBtn');
     elements.selectionMode = document.getElementById('selectionMode');
     elements.cancelSelection = document.getElementById('cancelSelection');
+    elements.confirmSelection = document.getElementById('confirmSelection');
     elements.loadingOverlay = document.getElementById('loadingOverlay');
     elements.toastContainer = document.getElementById('toastContainer');
 }
@@ -163,7 +165,7 @@ function setupEventListeners() {
     elements.useLocationBtn.addEventListener('click', () => getUserLocation(true));
 
     // Select on map button
-    elements.selectOnMapBtn.addEventListener('click', enableDestinationSelection);
+    elements.selectOnMapBtn.addEventListener('click', () => enableDestinationSelection('end'));
 
     // Swap locations button
     elements.swapBtn.addEventListener('click', swapLocations);
@@ -184,6 +186,9 @@ function setupEventListeners() {
 
     // Cancel destination selection
     elements.cancelSelection.addEventListener('click', cancelDestinationSelection);
+
+    // Confirm destination selection
+    elements.confirmSelection.addEventListener('click', confirmDestinationSelection);
 
     // Close suggestions when clicking outside
     document.addEventListener('click', (e) => {
@@ -329,27 +334,43 @@ function createMarker(lat, lng, type) {
 }
 
 // =============================================================================
-// Destination Selection Mode
+// Destination Selection Mode (Center Pin Approach)
 // =============================================================================
-function enableDestinationSelection() {
+let selectionType = 'end'; // 'start' or 'end'
+
+function enableDestinationSelection(type = 'end') {
+    selectionType = type;
     state.isSelectingDestination = true;
     elements.selectionMode.classList.add('active');
     document.getElementById('searchPanel')?.classList.add('minimized');
+    
+    // Show center pin
+    const centerPin = document.getElementById('centerPin');
+    if (centerPin) {
+        centerPin.classList.add('active');
+        // Color the pin based on selection type
+        centerPin.classList.toggle('start-selection', type === 'start');
+    }
 
-    // Change cursor
-    document.getElementById('map').style.cursor = 'crosshair';
-
-    // Add temporary destination marker that follows cursor
-    map.on('mousemove', updateTempMarker);
+    // Update selection message
+    const messageSpan = elements.selectionMode.querySelector('.selection-message span');
+    if (messageSpan) {
+        messageSpan.textContent = type === 'start' 
+            ? 'Move the map to position the pin on your starting point'
+            : 'Move the map to position the pin on your destination';
+    }
 }
 
 function cancelDestinationSelection() {
     state.isSelectingDestination = false;
     elements.selectionMode.classList.remove('active');
     document.getElementById('searchPanel')?.classList.remove('minimized');
-    document.getElementById('map').style.cursor = '';
-
-    map.off('mousemove', updateTempMarker);
+    
+    // Hide center pin
+    const centerPin = document.getElementById('centerPin');
+    if (centerPin) {
+        centerPin.classList.remove('active', 'start-selection');
+    }
 
     if (tempDestinationMarker) {
         map.removeLayer(tempDestinationMarker);
@@ -357,26 +378,31 @@ function cancelDestinationSelection() {
     }
 }
 
-function updateTempMarker(e) {
-    const { lat, lng } = e.latlng;
+function confirmDestinationSelection() {
+    if (!state.isSelectingDestination) return;
+    
+    // Get the center of the map
+    const center = map.getCenter();
+    const lat = center.lat;
+    const lng = center.lng;
 
-    if (!tempDestinationMarker) {
-        const icon = L.divIcon({
-            className: 'custom-marker',
-            html: '<div class="destination-pin"><div class="destination-pin-head"><i class="fa-solid fa-location-dot"></i></div><div class="destination-pin-shadow"></div></div>',
-            iconSize: [40, 50],
-            iconAnchor: [20, 50]
-        });
-        tempDestinationMarker = L.marker([lat, lng], { icon }).addTo(map);
-    } else {
-        tempDestinationMarker.setLatLng([lat, lng]);
-    }
+    // Clean up selection mode
+    cancelDestinationSelection();
+
+    // Set the location based on selection type
+    reverseGeocode(lat, lng, selectionType);
+    
+    showToast('Location selected!', 'success');
 }
 
 function handleMapClick(e) {
+    // Quick select on map click during selection mode
     if (!state.isSelectingDestination) return;
 
     const { lat, lng } = e.latlng;
+    
+    // Center map on clicked location for precise selection
+    map.setView([lat, lng], map.getZoom());
 
     // Clean up selection mode
     cancelDestinationSelection();

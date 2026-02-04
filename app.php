@@ -57,6 +57,9 @@
         <div class="input-wrapper">
           <input type="text" id="startInput" class="search-input" placeholder="Choose starting point"
             autocomplete="off">
+          <button class="input-action" id="selectStartOnMapBtn" title="Select start on map">
+            <i class="fa-solid fa-map-pin"></i>
+          </button>
           <button class="input-action" id="useLocationBtn" title="Use my location">
             <i class="fa-solid fa-location-crosshairs"></i>
           </button>

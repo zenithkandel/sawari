@@ -859,8 +859,15 @@ body {
 }
 
 @keyframes pinBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
 .center-pin-shadow {
@@ -873,8 +880,17 @@ body {
 }
 
 @keyframes shadowPulse {
-    0%, 100% { transform: scale(1); opacity: 0.25; }
-    50% { transform: scale(0.8); opacity: 0.4; }
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.25;
+    }
+
+    50% {
+        transform: scale(0.8);
+        opacity: 0.4;
+    }
 }
 
 /* =====================================================
