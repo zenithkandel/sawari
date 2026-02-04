@@ -164,7 +164,10 @@ function setupEventListeners() {
     // Use my location button
     elements.useLocationBtn.addEventListener('click', () => getUserLocation(true));
 
-    // Select on map button
+    // Select start location on map button
+    elements.selectStartOnMapBtn.addEventListener('click', () => enableDestinationSelection('start'));
+
+    // Select destination on map button
     elements.selectOnMapBtn.addEventListener('click', () => enableDestinationSelection('end'));
 
     // Swap locations button
@@ -343,7 +346,7 @@ function enableDestinationSelection(type = 'end') {
     state.isSelectingDestination = true;
     elements.selectionMode.classList.add('active');
     document.getElementById('searchPanel')?.classList.add('minimized');
-    
+
     // Show center pin
     const centerPin = document.getElementById('centerPin');
     if (centerPin) {
@@ -355,7 +358,7 @@ function enableDestinationSelection(type = 'end') {
     // Update selection message
     const messageSpan = elements.selectionMode.querySelector('.selection-message span');
     if (messageSpan) {
-        messageSpan.textContent = type === 'start' 
+        messageSpan.textContent = type === 'start'
             ? 'Move the map to position the pin on your starting point'
             : 'Move the map to position the pin on your destination';
     }
@@ -365,7 +368,7 @@ function cancelDestinationSelection() {
     state.isSelectingDestination = false;
     elements.selectionMode.classList.remove('active');
     document.getElementById('searchPanel')?.classList.remove('minimized');
-    
+
     // Hide center pin
     const centerPin = document.getElementById('centerPin');
     if (centerPin) {
@@ -380,7 +383,7 @@ function cancelDestinationSelection() {
 
 function confirmDestinationSelection() {
     if (!state.isSelectingDestination) return;
-    
+
     // Get the center of the map
     const center = map.getCenter();
     const lat = center.lat;
@@ -391,7 +394,7 @@ function confirmDestinationSelection() {
 
     // Set the location based on selection type
     reverseGeocode(lat, lng, selectionType);
-    
+
     showToast('Location selected!', 'success');
 }
 
@@ -400,7 +403,7 @@ function handleMapClick(e) {
     if (!state.isSelectingDestination) return;
 
     const { lat, lng } = e.latlng;
-    
+
     // Center map on clicked location for precise selection
     map.setView([lat, lng], map.getZoom());
 

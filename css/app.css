@@ -235,8 +235,9 @@ body {
 }
 
 .input-action {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -245,11 +246,23 @@ body {
     color: var(--primary);
     cursor: pointer;
     transition: background var(--transition), color var(--transition);
+    border-radius: var(--radius-sm);
+    margin: 2px;
 }
 
 .input-action:hover {
     background: var(--gray-100);
     color: var(--primary-dark);
+}
+
+/* Secondary action button style (map pin) */
+.input-action:nth-child(2) {
+    color: var(--gray-500);
+}
+
+.input-action:nth-child(2):hover {
+    color: var(--danger);
+    background: rgba(234, 67, 53, 0.1);
 }
 
 /* Connector Line */
@@ -856,6 +869,11 @@ body {
     color: var(--danger);
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
     animation: pinBounce 1s ease-in-out infinite;
+}
+
+/* Green color for start location selection */
+.center-pin.start-selection .center-pin-icon {
+    color: var(--primary);
 }
 
 @keyframes pinBounce {
