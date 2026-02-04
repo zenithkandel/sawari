@@ -1,0 +1,100 @@
+{
+  "paths": [
+    {
+      "name": "Thamel to Durbar Square",
+      "coordinates": [
+        { "serial": 1, "lat": 27.7152, "lng": 85.3123 },
+        { "serial": 2, "lat": 27.714, "lng": 85.313 },
+        { "serial": 3, "lat": 27.7125, "lng": 85.3138 },
+        { "serial": 4, "lat": 27.711, "lng": 85.3145 },
+        { "serial": 5, "lat": 27.7095, "lng": 85.3155 },
+        { "serial": 6, "lat": 27.708, "lng": 85.3165 },
+        { "serial": 7, "lat": 27.7045, "lng": 85.307 }
+      ]
+    },
+    {
+      "name": "Boudhanath Stupa Circuit",
+      "coordinates": [
+        { "serial": 1, "lat": 27.7215, "lng": 85.3615 },
+        { "serial": 2, "lat": 27.722, "lng": 85.3625 },
+        { "serial": 3, "lat": 27.7225, "lng": 85.3635 },
+        { "serial": 4, "lat": 27.722, "lng": 85.3645 },
+        { "serial": 5, "lat": 27.721, "lng": 85.3645 },
+        { "serial": 6, "lat": 27.7205, "lng": 85.3635 },
+        { "serial": 7, "lat": 27.7208, "lng": 85.362 },
+        { "serial": 8, "lat": 27.7215, "lng": 85.3615 }
+      ]
+    },
+    {
+      "name": "Pashupatinath Temple Walk",
+      "coordinates": [
+        { "serial": 1, "lat": 27.7107, "lng": 85.3485 },
+        { "serial": 2, "lat": 27.71, "lng": 85.349 },
+        { "serial": 3, "lat": 27.7095, "lng": 85.35 },
+        { "serial": 4, "lat": 27.709, "lng": 85.351 },
+        { "serial": 5, "lat": 27.7085, "lng": 85.352 },
+        { "serial": 6, "lat": 27.708, "lng": 85.353 }
+      ]
+    },
+    {
+      "name": "Swayambhunath (Monkey Temple) Trail",
+      "coordinates": [
+        { "serial": 1, "lat": 27.7025, "lng": 85.2905 },
+        { "serial": 2, "lat": 27.703, "lng": 85.2895 },
+        { "serial": 3, "lat": 27.704, "lng": 85.2885 },
+        { "serial": 4, "lat": 27.705, "lng": 85.2878 },
+        { "serial": 5, "lat": 27.706, "lng": 85.2872 },
+        { "serial": 6, "lat": 27.7148, "lng": 85.2903 }
+      ]
+    },
+    {
+      "name": "Garden of Dreams to Rani Pokhari",
+      "coordinates": [
+        { "serial": 1, "lat": 27.7145, "lng": 85.3165 },
+        { "serial": 2, "lat": 27.714, "lng": 85.3175 },
+        { "serial": 3, "lat": 27.7135, "lng": 85.319 },
+        { "serial": 4, "lat": 27.713, "lng": 85.3205 },
+        { "serial": 5, "lat": 27.7125, "lng": 85.3215 },
+        { "serial": 6, "lat": 27.7105, "lng": 85.3205 }
+      ]
+    },
+    {
+      "name": "Patan Durbar Square Heritage Walk",
+      "coordinates": [
+        { "serial": 1, "lat": 27.6725, "lng": 85.3255 },
+        { "serial": 2, "lat": 27.672, "lng": 85.326 },
+        { "serial": 3, "lat": 27.6715, "lng": 85.327 },
+        { "serial": 4, "lat": 27.671, "lng": 85.328 },
+        { "serial": 5, "lat": 27.6705, "lng": 85.3275 },
+        { "serial": 6, "lat": 27.67, "lng": 85.3265 },
+        { "serial": 7, "lat": 27.6695, "lng": 85.3255 },
+        { "serial": 8, "lat": 27.67, "lng": 85.3245 },
+        { "serial": 9, "lat": 27.671, "lng": 85.325 }
+      ]
+    },
+    {
+      "name": "Bagmati River Corridor",
+      "coordinates": [
+        { "serial": 1, "lat": 27.685, "lng": 85.315 },
+        { "serial": 2, "lat": 27.6855, "lng": 85.317 },
+        { "serial": 3, "lat": 27.686, "lng": 85.3195 },
+        { "serial": 4, "lat": 27.6865, "lng": 85.322 },
+        { "serial": 5, "lat": 27.687, "lng": 85.3245 },
+        { "serial": 6, "lat": 27.6875, "lng": 85.327 },
+        { "serial": 7, "lat": 27.688, "lng": 85.3295 },
+        { "serial": 8, "lat": 27.6885, "lng": 85.332 }
+      ]
+    },
+    {
+      "name": "New Road to Ason Market",
+      "coordinates": [
+        { "serial": 1, "lat": 27.703, "lng": 85.313 },
+        { "serial": 2, "lat": 27.704, "lng": 85.3125 },
+        { "serial": 3, "lat": 27.7055, "lng": 85.312 },
+        { "serial": 4, "lat": 27.707, "lng": 85.3115 },
+        { "serial": 5, "lat": 27.7085, "lng": 85.311 },
+        { "serial": 6, "lat": 27.7095, "lng": 85.3105 }
+      ]
+    }
+  ]
+}
