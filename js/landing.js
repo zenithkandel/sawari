@@ -490,3 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Initialize smooth reveal
             document.addEventListener('DOMContentLoaded', initSmoothReveal);
+        });
+    }
+});
