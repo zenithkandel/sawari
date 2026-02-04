@@ -836,7 +836,7 @@ img {
     background: linear-gradient(145deg, #1a1a2e 0%, #16162a 100%);
     border-radius: 40px;
     padding: 14px;
-    box-shadow: 
+    box-shadow:
         0 50px 100px -20px rgba(0, 0, 0, 0.5),
         0 30px 60px -15px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1),
@@ -851,7 +851,7 @@ img {
 
 [data-theme="light"] .phone-frame {
     background: linear-gradient(145deg, #1a1a2e 0%, #16162a 100%);
-    box-shadow: 
+    box-shadow:
         0 50px 100px -20px rgba(0, 0, 0, 0.3),
         0 30px 60px -15px rgba(0, 0, 0, 0.25),
         0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -875,7 +875,7 @@ img {
     height: 8px;
     background: #1a1a2e;
     border-radius: 50%;
-    box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .phone-notch::after {
@@ -936,43 +936,51 @@ img {
 }
 
 .app-search {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: var(--space-3);
-    margin-bottom: var(--space-4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-radius: 16px;
+    padding: var(--space-4);
+    margin-bottom: var(--space-5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .search-input {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-2) 0;
+    padding: var(--space-2) var(--space-1);
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+    flex-shrink: 0;
 }
 
 .dot-green {
     background: var(--color-secondary);
+    color: var(--color-secondary);
 }
 
 .dot-red {
     background: #ef4444;
+    color: #ef4444;
 }
 
 .input-text {
     font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--color-white);
+    letter-spacing: 0.01em;
 }
 
 .search-line {
     width: 2px;
-    height: 20px;
-    background: var(--color-gray-600);
-    margin-left: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-gray-700) 50%, #ef4444 100%);
+    margin-left: 5px;
+    border-radius: 1px;
 }
 
 .app-route {
@@ -1046,9 +1054,6 @@ img {
 .step-detail {
     font-size: var(--text-xs);
     color: var(--color-gray-400);
-    display: flex;
-    align-items: center;
-    gap: 6px;
 }
 
 .step-detail::before {

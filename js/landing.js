@@ -410,8 +410,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const phoneMockup = document.querySelector('.phone-frame');
 
     if (phoneMockup) {
-        // Add subtle 3D effect on hover
+        let isHovering = false;
+        let targetRotateX = 3;
+        let targetRotateY = -3;
+        let currentRotateX = 3;
+        let currentRotateY = -3;
+
+        // Smooth animation loop
+        function animatePhone() {
+            // Ease towards target
+            currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+            currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+            phoneMockup.style.transform = `perspective(1000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+
+            requestAnimationFrame(animatePhone);
+        }
+
+        animatePhone();
+
+        // Subtle 3D effect on hover with smooth interpolation
         phoneMockup.addEventListener('mousemove', (e) => {
+            isHovering = true;
             const rect = phoneMockup.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -419,59 +439,54 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-
-            phoneMockup.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            // Reduced intensity for subtlety
+            targetRotateX = ((y - centerY) / centerY) * 5;
+            targetRotateY = ((centerX - x) / centerX) * 5;
         });
 
         phoneMockup.addEventListener('mouseleave', () => {
-            phoneMockup.style.transform = 'perspective(1000px) rotateY(-5deg) rotateX(5deg)';
-        });
-    }
-});
+            isHovering = false;
+            // Return to default position
+            targetRotateX = 3;
+            targetRotateY = -3;
+            document.addEventListener('DOMContentLoaded', () => {
+                const routeSteps = document.querySelectorAll('.route-step');
 
-/* =====================================================
-   Route Steps Animation in Phone
-   ===================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-    const routeSteps = document.querySelectorAll('.route-step');
+                if (routeSteps.length > 0) {
+                    // Animate steps sequentially
+                    routeSteps.forEach((step, index) => {
+                        step.style.opacity = '0';
+                        step.style.transform = 'translateX(-20px)';
 
-    if (routeSteps.length > 0) {
-        // Animate steps sequentially
-        routeSteps.forEach((step, index) => {
-            step.style.opacity = '0';
-            step.style.transform = 'translateX(-20px)';
+                        setTimeout(() => {
+                            step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                            step.style.opacity = '1';
+                            step.style.transform = 'translateX(0)';
+                        }, 3500 + (index * 300));
+                    });
+                }
+            });
 
-            setTimeout(() => {
-                step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                step.style.opacity = '1';
-                step.style.transform = 'translateX(0)';
-            }, 3500 + (index * 300));
-        });
-    }
-});
+            /* =====================================================
+               Smooth Reveal on Scroll
+               ===================================================== */
+            function initSmoothReveal() {
+                const revealElements = document.querySelectorAll('[data-reveal]');
 
-/* =====================================================
-   Smooth Reveal on Scroll
-   ===================================================== */
-function initSmoothReveal() {
-    const revealElements = document.querySelectorAll('[data-reveal]');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                });
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
+                revealElements.forEach(el => observer.observe(el));
             }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    });
 
-    revealElements.forEach(el => observer.observe(el));
-}
-
-// Initialize smooth reveal
-document.addEventListener('DOMContentLoaded', initSmoothReveal);
+            // Initialize smooth reveal
+            document.addEventListener('DOMContentLoaded', initSmoothReveal);
