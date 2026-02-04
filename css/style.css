@@ -223,8 +223,13 @@ body {
     border-radius: 50%;
 }
 
-.coord-marker.start { background: var(--success); }
-.coord-marker.end { background: var(--danger); }
+.coord-marker.start {
+    background: var(--success);
+}
+
+.coord-marker.end {
+    background: var(--danger);
+}
 
 .coord-label {
     font-size: 13px;
@@ -362,14 +367,14 @@ body {
     background-color: white;
     transition: 0.3s;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.toggle-switch input:checked + .toggle-slider {
+.toggle-switch input:checked+.toggle-slider {
     background-color: var(--primary);
 }
 
-.toggle-switch input:checked + .toggle-slider:before {
+.toggle-switch input:checked+.toggle-slider:before {
     transform: translateX(22px);
 }
 
@@ -727,7 +732,9 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* File Status */
