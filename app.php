@@ -1,305 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Route Mapper - Walking Path Finder</title>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sawari - Navigate Nepal</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚌</text></svg>">
+    
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Pro Icons -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.1.0/css/fontawesome.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.1.0/css/solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.1.0/css/duotone.css">
+    
     <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    
     <!-- Leaflet Routing Machine CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"
-    />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+    
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="header-content">
-        <div class="logo">
-          <div class="logo-icon">🗺️</div>
-          <span>Route Mapper</span>
-        </div>
-        <div id="roadModeStatus" class="status-badge straight">
-          <span class="status-dot"></span> Straight Lines
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="main-container">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <!-- Route Card -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title"> 📍 Navigation </span>
-          </div>
-          <div class="card-body">
-            <!-- Tabs -->
-            <div class="tabs">
-              <button class="tab-btn active" data-tab="routeFinderTab">
-                Route Finder
-              </button>
-              <button class="tab-btn" data-tab="customPathsTab">
-                Custom Paths
-              </button>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- Full Screen Map -->
+    <div id="map"></div>
+    
+    <!-- Search Panel -->
+    <div class="search-panel" id="searchPanel">
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <a href="index.html" class="back-btn" title="Back to Home">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="brand">
+                <span class="brand-name">Sawari</span>
             </div>
-
-            <!-- Route Finder Tab -->
-            <div class="tab-content active" id="routeFinderTab">
-              <!-- Follow Roads Toggle -->
-              <div class="toggle-container">
-                <div class="toggle-info">
-                  <span class="toggle-label">Follow Roads</span>
-                  <span class="toggle-desc"
-                    >Route along actual walking paths</span
-                  >
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="followRoadsToggle" />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-
-              <!-- Start Point -->
-              <div class="coord-section">
-                <div class="coord-header">
-                  <div class="coord-marker start"></div>
-                  <span class="coord-label">Start Point</span>
-                </div>
-                <div class="input-row">
-                  <div class="form-group">
-                    <label class="form-label">Latitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="startLat"
-                      placeholder="27.7172"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Longitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="startLng"
-                      placeholder="85.3240"
-                    />
-                  </div>
-                </div>
-                <div class="quick-actions">
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7172"
-                    data-lng="85.3240"
-                    data-target="start"
-                  >
-                    Kathmandu
-                  </button>
-                  <button
-                    class="quick-btn"
-                    data-lat="27.6710"
-                    data-lng="85.4298"
-                    data-target="start"
-                  >
-                    Bhaktapur
-                  </button>
-                </div>
-              </div>
-
-              <!-- End Point -->
-              <div class="coord-section">
-                <div class="coord-header">
-                  <div class="coord-marker end"></div>
-                  <span class="coord-label">End Point</span>
-                </div>
-                <div class="input-row">
-                  <div class="form-group">
-                    <label class="form-label">Latitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="endLat"
-                      placeholder="27.7089"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Longitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="endLng"
-                      placeholder="85.3189"
-                    />
-                  </div>
-                </div>
-                <div class="quick-actions">
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7089"
-                    data-lng="85.3189"
-                    data-target="end"
-                  >
-                    Durbar Marg
-                  </button>
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7149"
-                    data-lng="85.3123"
-                    data-target="end"
-                  >
-                    Thamel
-                  </button>
-                </div>
-              </div>
-
-              <!-- Buttons -->
-              <div class="btn-group">
-                <button class="btn btn-primary btn-block" id="findRouteBtn">
-                  🔍 Find Route
-                </button>
-                <button class="btn btn-secondary" id="clearRouteBtn">
-                  🗑️ Clear
-                </button>
-              </div>
-
-              <!-- Error Message -->
-              <div class="error-msg" id="errorMsg"></div>
-              <div class="success-msg" id="successMsg"></div>
-            </div>
-
-            <!-- Custom Paths Tab -->
-            <div class="tab-content" id="customPathsTab">
-              <!-- File Upload Area -->
-              <div class="file-upload" id="fileUploadArea">
-                <input
-                  type="file"
-                  id="jsonFileInput"
-                  accept=".json"
-                  style="display: none"
-                />
-                <div class="file-upload-icon">📁</div>
-                <div class="file-upload-text">
-                  <strong>Click to upload</strong> or drag and drop<br />
-                  JSON file with path coordinates
-                </div>
-              </div>
-
-              <!-- File Status -->
-              <div class="file-status" id="fileStatus"></div>
-
-              <!-- Path Selector (hidden until file loaded) -->
-              <div
-                id="pathSelectSection"
-                style="display: none; margin-top: 16px"
-              >
-                <div class="form-group">
-                  <label class="form-label">Select Path</label>
-                  <select class="form-select" id="pathSelector">
-                    <option value="">-- Select a path --</option>
-                  </select>
-                </div>
-
-                <div class="btn-group" style="margin-top: 12px">
-                  <button class="btn btn-success btn-block" id="drawPathBtn">
-                    🖊️ Draw Path
-                  </button>
-                  <button class="btn btn-secondary" id="clearPathsBtn">
-                    🗑️ Clear
-                  </button>
-                </div>
-              </div>
-
-              <!-- Path Info -->
-              <div class="path-info" id="pathInfo">
-                <div class="path-info-row">
-                  <span class="path-info-label">Path Name</span>
-                  <span class="path-info-value" id="pathName">--</span>
-                </div>
-                <div class="path-info-row">
-                  <span class="path-info-label">Points</span>
-                  <span class="path-info-value" id="pathPoints">--</span>
-                </div>
-                <div class="path-info-row">
-                  <span class="path-info-label">Distance</span>
-                  <span class="path-info-value" id="pathDistance">--</span>
-                </div>
-              </div>
-
-              <!-- Legend -->
-              <div class="legend" id="pathLegend"></div>
-
-              <!-- JSON Format Help -->
-              <div class="json-help">
-                <div class="json-help-title">💡 JSON Format</div>
-                <pre>
-{
-  "paths": [
-    {
-      "name": "Path Name",
-      "coordinates": [
-        {"serial": 1, "lat": 27.71, "lng": 85.32},
-        {"serial": 2, "lat": 27.72, "lng": 85.33}
-      ]
-    }
-  ]
-}</pre
-                >
-              </div>
-            </div>
-          </div>
+            <button class="menu-btn" id="menuBtn" title="Menu">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
         </div>
-      </aside>
-
-      <!-- Map Container -->
-      <main class="map-container">
-        <div class="map-header">
-          <span class="map-title">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/256px-Openstreetmap_logo.svg.png"
-              alt="OSM"
-            />
-            OpenStreetMap
-          </span>
-        </div>
-        <div id="map"></div>
-        <div class="map-footer">
-          <div class="route-stats">
-            <div class="stat-item">
-              <span class="stat-label">Distance</span>
-              <span class="stat-value" id="routeDistance">--</span>
+        
+        <!-- Search Form -->
+        <div class="search-form">
+            <!-- Starting Point -->
+            <div class="search-input-group">
+                <div class="input-marker start"></div>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="startInput" 
+                        class="search-input" 
+                        placeholder="Choose starting point"
+                        autocomplete="off"
+                    >
+                    <button class="input-action" id="useLocationBtn" title="Use my location">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </button>
+                </div>
             </div>
-            <div class="stat-item">
-              <span class="stat-label">Est. Walking Time</span>
-              <span class="stat-value" id="routeTime">--</span>
+            
+            <!-- Connector Line -->
+            <div class="input-connector">
+                <div class="connector-line"></div>
             </div>
-          </div>
+            
+            <!-- Destination Point -->
+            <div class="search-input-group">
+                <div class="input-marker end"></div>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="destInput" 
+                        class="search-input" 
+                        placeholder="Choose destination"
+                        autocomplete="off"
+                    >
+                    <button class="input-action" id="selectOnMapBtn" title="Select on map">
+                        <i class="fa-solid fa-map-pin"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Swap Button -->
+            <button class="swap-btn" id="swapBtn" title="Swap locations">
+                <i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i>
+            </button>
         </div>
-      </main>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-btn" id="findRouteBtn">
+                <i class="fa-duotone fa-route"></i>
+                <span>Find Route</span>
+            </button>
+            <button class="quick-btn secondary" id="clearBtn">
+                <i class="fa-solid fa-xmark"></i>
+                <span>Clear</span>
+            </button>
+        </div>
+        
+        <!-- Search Suggestions -->
+        <div class="suggestions-container" id="suggestionsContainer">
+            <div class="suggestions-list" id="suggestionsList"></div>
+        </div>
+    </div>
+    
+    <!-- Route Info Panel (shows after route is found) -->
+    <div class="route-panel" id="routePanel">
+        <div class="route-panel-header">
+            <button class="close-panel-btn" id="closeRoutePanel">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="route-summary">
+                <div class="route-time" id="routeTime">--</div>
+                <div class="route-distance" id="routeDistance">-- km</div>
+            </div>
+        </div>
+        <div class="route-details" id="routeDetails">
+            <!-- Route steps will be populated here -->
+        </div>
+    </div>
+    
+    <!-- Map Controls -->
+    <div class="map-controls">
+        <button class="map-control-btn" id="locateBtn" title="My Location">
+            <i class="fa-solid fa-location-crosshairs"></i>
+        </button>
+        <button class="map-control-btn" id="zoomInBtn" title="Zoom In">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <button class="map-control-btn" id="zoomOutBtn" title="Zoom Out">
+            <i class="fa-solid fa-minus"></i>
+        </button>
+    </div>
+    
+    <!-- Destination Selection Mode Overlay -->
+    <div class="selection-mode" id="selectionMode">
+        <div class="selection-message">
+            <i class="fa-solid fa-map-pin"></i>
+            <span>Tap on the map to select destination</span>
+        </div>
+        <button class="cancel-selection" id="cancelSelection">Cancel</button>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fa-duotone fa-spinner-third fa-spin"></i>
+        </div>
+        <span class="loading-text">Finding best route...</span>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Mobile Bottom Sheet (for route details on mobile) -->
+    <div class="bottom-sheet" id="bottomSheet">
+        <div class="bottom-sheet-handle"></div>
+        <div class="bottom-sheet-content" id="bottomSheetContent">
+            <!-- Content will be populated dynamically -->
+        </div>
     </div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    
     <!-- Leaflet Routing Machine JS -->
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
-
+    
     <!-- Custom JS -->
     <script src="js/app.js"></script>
-  </body>
+</body>
 </html>
