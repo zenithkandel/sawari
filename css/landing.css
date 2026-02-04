@@ -91,18 +91,27 @@
    Light Theme
    ===================================================== */
 [data-theme="light"] {
-    --color-bg: #ffffff;
+    --color-bg: #fefefe;
     --color-surface: #f8fafc;
     --color-surface-elevated: #ffffff;
     --color-border: #e2e8f0;
     --color-text: #0f172a;
-    --color-text-secondary: #64748b;
+    --color-text-secondary: #475569;
     --color-text-muted: #94a3b8;
     --color-gray-900: #f1f5f9;
     --color-gray-800: #e2e8f0;
     --color-gray-700: #cbd5e1;
     --color-gray-600: #94a3b8;
-    --color-accent-glow: rgba(245, 158, 11, 0.15);
+    --color-accent-glow: rgba(245, 158, 11, 0.2);
+}
+
+/* Light theme body gradient background */
+[data-theme="light"] body {
+    background:
+        linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+        linear-gradient(180deg, #fefefe 0%, #f8fafc 100%);
+    background-attachment: fixed;
 }
 
 /* =====================================================
@@ -478,8 +487,10 @@ img {
 
 [data-theme="light"] .hero-gradient {
     background:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 50% at 0% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+        radial-gradient(ellipse 100% 60% at 50% -10%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 0% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 100% 70%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
 }
 
 .hero-grid {
@@ -495,8 +506,10 @@ img {
 
 [data-theme="light"] .hero-grid {
     background-image:
-        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 158, 11, 0.08) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 70%);
 }
 
 /* Parallax Layers */
@@ -852,9 +865,56 @@ img {
 [data-theme="light"] .phone-frame {
     background: linear-gradient(145deg, #1a1a2e 0%, #16162a 100%);
     box-shadow:
-        0 50px 100px -20px rgba(0, 0, 0, 0.3),
-        0 30px 60px -15px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.08);
+        0 50px 100px -20px rgba(0, 0, 0, 0.25),
+        0 30px 60px -15px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 120px -20px rgba(245, 158, 11, 0.15);
+}
+
+/* Light theme phone screen - bright UI */
+[data-theme="light"] .phone-screen {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .app-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .app-location {
+    color: #475569;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .app-search {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.01) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .input-text {
+    color: #0f172a;
+}
+
+[data-theme="light"] .route-step {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.01) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .route-step:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.03) 100%);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="light"] .step-icon {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .step-info .step-title {
+    color: #0f172a;
+}
+
+[data-theme="light"] .step-detail {
+    color: #64748b;
 }
 
 .phone-notch {
@@ -1268,7 +1328,10 @@ img {
 }
 
 [data-theme="light"] .problem-illustration {
-    background: var(--color-white);
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    box-shadow:
+        0 4px 20px -4px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .confusion-svg {
@@ -1943,5 +2006,248 @@ img {
 
     html {
         scroll-behavior: auto;
+    }
+}
+
+/* =====================================================
+   Light Theme Enhancements - Lively & Vibrant
+   ===================================================== */
+
+/* Light theme floating elements - more visible */
+[data-theme="light"] .floating-element {
+    opacity: 0.2;
+    filter: blur(60px);
+}
+
+[data-theme="light"] .el-1 {
+    background: var(--color-accent);
+}
+
+[data-theme="light"] .el-2 {
+    background: var(--color-secondary);
+}
+
+[data-theme="light"] .el-3 {
+    background: linear-gradient(135deg, var(--color-accent-light), var(--color-secondary-light));
+}
+
+/* Light theme section surfaces with subtle gradients */
+[data-theme="light"] .section-features {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
+}
+
+[data-theme="light"] .section-technology {
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #fefefe 0%, #f8fafc 100%);
+}
+
+[data-theme="light"] .section-problem {
+    background:
+        radial-gradient(ellipse 60% 50% at 100% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #f8fafc 0%, #fefefe 100%);
+}
+
+/* Light theme cards with soft shadows and gradients */
+[data-theme="light"] .feature-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .feature-card:hover {
+    box-shadow:
+        0 8px 32px rgba(245, 158, 11, 0.12),
+        0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .feature-card.feature-main {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+[data-theme="light"] .tech-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+[data-theme="light"] .tech-card:hover {
+    box-shadow:
+        0 8px 24px rgba(245, 158, 11, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Light theme feature icons with gradient backgrounds */
+[data-theme="light"] .feature-icon {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+}
+
+/* Light theme CTA section */
+[data-theme="light"] .section-cta {
+    background:
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 90% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #fefefe 0%, #f8fafc 100%);
+}
+
+[data-theme="light"] .cta-gradient {
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 30% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+/* Light theme footer */
+[data-theme="light"] .footer {
+    background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+/* Light theme buttons enhancement */
+[data-theme="light"] .btn-primary {
+    box-shadow:
+        0 4px 14px rgba(245, 158, 11, 0.3),
+        0 2px 6px rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="light"] .btn-primary:hover {
+    box-shadow:
+        0 6px 20px rgba(245, 158, 11, 0.4),
+        0 4px 10px rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="light"] .btn-secondary {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: #ffffff;
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+/* Light theme step cards in "how it works" */
+[data-theme="light"] .flow-step {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .flow-step:hover {
+    box-shadow:
+        0 12px 32px rgba(245, 158, 11, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Light theme nav */
+[data-theme="light"] .nav {
+    background: rgba(254, 254, 254, 0.8);
+}
+
+[data-theme="light"] .nav.scrolled {
+    background: rgba(254, 254, 254, 0.95);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Light theme abstract shapes more visible */
+[data-theme="light"] .abstract-shape {
+    opacity: 0.25;
+}
+
+/* Light theme phone glow effect */
+[data-theme="light"] .phone-mockup::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(30px);
+}
+
+/* Light theme stat boxes */
+[data-theme="light"] .stat-badge {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Light theme solution section */
+[data-theme="light"] .section-solution {
+    background:
+        radial-gradient(ellipse 50% 40% at 10% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 90% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #fefefe 0%, #f8fafc 100%);
+}
+
+/* Light theme connector */
+[data-theme="light"] .connector-line {
+    background: linear-gradient(to bottom, var(--color-accent), rgba(245, 158, 11, 0.2));
+}
+
+/* Light theme step features pills */
+[data-theme="light"] .step-features li {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    color: #475569;
+}
+
+/* Light theme section index badges */
+[data-theme="light"] .section-index {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.05) 100%);
+}
+
+/* Decorative animated gradient orbs for light theme */
+[data-theme="light"] .hero::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    z-index: 0;
+    animation: floatOrb 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Second decorative orb */
+[data-theme="light"] .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    z-index: 0;
+    animation: floatOrb 25s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-30px, 20px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-20px, 40px) scale(1);
+    }
+
+    75% {
+        transform: translate(10px, 20px) scale(0.95);
     }
 }
