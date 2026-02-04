@@ -1,305 +1,628 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Route Mapper - Walking Path Finder</title>
+    <meta
+      name="description"
+      content="Sawari - Navigate Nepal's public transport with ease. Find bus routes, nearest stops, and step-by-step directions."
+    />
+    <title>Sawari | Navigate Public Transport</title>
 
-    <!-- Google Fonts -->
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <!-- Leaflet Routing Machine CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"
-    />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/landing.css" />
   </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="header-content">
-        <div class="logo">
-          <div class="logo-icon">🗺️</div>
-          <span>Route Mapper</span>
+    <!-- Loading screen -->
+    <div class="loader" id="loader">
+      <div class="loader-content">
+        <div class="loader-bus">
+          <svg viewBox="0 0 80 40" fill="none" class="bus-icon">
+            <rect x="5" y="8" width="55" height="24" rx="4" fill="currentColor"/>
+            <rect x="60" y="12" width="12" height="16" rx="2" fill="currentColor"/>
+            <rect x="10" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
+            <rect x="26" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
+            <rect x="42" y="12" width="12" height="10" rx="2" fill="var(--color-bg)"/>
+            <circle cx="18" cy="32" r="5" fill="var(--color-gray-600)"/>
+            <circle cx="52" cy="32" r="5" fill="var(--color-gray-600)"/>
+            <circle cx="18" cy="32" r="2" fill="var(--color-bg)"/>
+            <circle cx="52" cy="32" r="2" fill="var(--color-bg)"/>
+          </svg>
+          <div class="road-line"></div>
         </div>
-        <div id="roadModeStatus" class="status-badge straight">
-          <span class="status-dot"></span> Straight Lines
+        <div class="loader-text">FINDING YOUR ROUTE</div>
+        <div class="loader-progress">
+          <div class="loader-bar"></div>
         </div>
       </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="main-container">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <!-- Route Card -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title"> 📍 Navigation </span>
-          </div>
-          <div class="card-body">
-            <!-- Tabs -->
-            <div class="tabs">
-              <button class="tab-btn active" data-tab="routeFinderTab">
-                Route Finder
-              </button>
-              <button class="tab-btn" data-tab="customPathsTab">
-                Custom Paths
-              </button>
-            </div>
-
-            <!-- Route Finder Tab -->
-            <div class="tab-content active" id="routeFinderTab">
-              <!-- Follow Roads Toggle -->
-              <div class="toggle-container">
-                <div class="toggle-info">
-                  <span class="toggle-label">Follow Roads</span>
-                  <span class="toggle-desc"
-                    >Route along actual walking paths</span
-                  >
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="followRoadsToggle" />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-
-              <!-- Start Point -->
-              <div class="coord-section">
-                <div class="coord-header">
-                  <div class="coord-marker start"></div>
-                  <span class="coord-label">Start Point</span>
-                </div>
-                <div class="input-row">
-                  <div class="form-group">
-                    <label class="form-label">Latitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="startLat"
-                      placeholder="27.7172"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Longitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="startLng"
-                      placeholder="85.3240"
-                    />
-                  </div>
-                </div>
-                <div class="quick-actions">
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7172"
-                    data-lng="85.3240"
-                    data-target="start"
-                  >
-                    Kathmandu
-                  </button>
-                  <button
-                    class="quick-btn"
-                    data-lat="27.6710"
-                    data-lng="85.4298"
-                    data-target="start"
-                  >
-                    Bhaktapur
-                  </button>
-                </div>
-              </div>
-
-              <!-- End Point -->
-              <div class="coord-section">
-                <div class="coord-header">
-                  <div class="coord-marker end"></div>
-                  <span class="coord-label">End Point</span>
-                </div>
-                <div class="input-row">
-                  <div class="form-group">
-                    <label class="form-label">Latitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="endLat"
-                      placeholder="27.7089"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Longitude</label>
-                    <input
-                      type="text"
-                      class="form-input"
-                      id="endLng"
-                      placeholder="85.3189"
-                    />
-                  </div>
-                </div>
-                <div class="quick-actions">
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7089"
-                    data-lng="85.3189"
-                    data-target="end"
-                  >
-                    Durbar Marg
-                  </button>
-                  <button
-                    class="quick-btn"
-                    data-lat="27.7149"
-                    data-lng="85.3123"
-                    data-target="end"
-                  >
-                    Thamel
-                  </button>
-                </div>
-              </div>
-
-              <!-- Buttons -->
-              <div class="btn-group">
-                <button class="btn btn-primary btn-block" id="findRouteBtn">
-                  🔍 Find Route
-                </button>
-                <button class="btn btn-secondary" id="clearRouteBtn">
-                  🗑️ Clear
-                </button>
-              </div>
-
-              <!-- Error Message -->
-              <div class="error-msg" id="errorMsg"></div>
-              <div class="success-msg" id="successMsg"></div>
-            </div>
-
-            <!-- Custom Paths Tab -->
-            <div class="tab-content" id="customPathsTab">
-              <!-- File Upload Area -->
-              <div class="file-upload" id="fileUploadArea">
-                <input
-                  type="file"
-                  id="jsonFileInput"
-                  accept=".json"
-                  style="display: none"
-                />
-                <div class="file-upload-icon">📁</div>
-                <div class="file-upload-text">
-                  <strong>Click to upload</strong> or drag and drop<br />
-                  JSON file with path coordinates
-                </div>
-              </div>
-
-              <!-- File Status -->
-              <div class="file-status" id="fileStatus"></div>
-
-              <!-- Path Selector (hidden until file loaded) -->
-              <div
-                id="pathSelectSection"
-                style="display: none; margin-top: 16px"
-              >
-                <div class="form-group">
-                  <label class="form-label">Select Path</label>
-                  <select class="form-select" id="pathSelector">
-                    <option value="">-- Select a path --</option>
-                  </select>
-                </div>
-
-                <div class="btn-group" style="margin-top: 12px">
-                  <button class="btn btn-success btn-block" id="drawPathBtn">
-                    🖊️ Draw Path
-                  </button>
-                  <button class="btn btn-secondary" id="clearPathsBtn">
-                    🗑️ Clear
-                  </button>
-                </div>
-              </div>
-
-              <!-- Path Info -->
-              <div class="path-info" id="pathInfo">
-                <div class="path-info-row">
-                  <span class="path-info-label">Path Name</span>
-                  <span class="path-info-value" id="pathName">--</span>
-                </div>
-                <div class="path-info-row">
-                  <span class="path-info-label">Points</span>
-                  <span class="path-info-value" id="pathPoints">--</span>
-                </div>
-                <div class="path-info-row">
-                  <span class="path-info-label">Distance</span>
-                  <span class="path-info-value" id="pathDistance">--</span>
-                </div>
-              </div>
-
-              <!-- Legend -->
-              <div class="legend" id="pathLegend"></div>
-
-              <!-- JSON Format Help -->
-              <div class="json-help">
-                <div class="json-help-title">💡 JSON Format</div>
-                <pre>
-{
-  "paths": [
-    {
-      "name": "Path Name",
-      "coordinates": [
-        {"serial": 1, "lat": 27.71, "lng": 85.32},
-        {"serial": 2, "lat": 27.72, "lng": 85.33}
-      ]
-    }
-  ]
-}</pre
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Map Container -->
-      <main class="map-container">
-        <div class="map-header">
-          <span class="map-title">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/256px-Openstreetmap_logo.svg.png"
-              alt="OSM"
-            />
-            OpenStreetMap
-          </span>
-        </div>
-        <div id="map"></div>
-        <div class="map-footer">
-          <div class="route-stats">
-            <div class="stat-item">
-              <span class="stat-label">Distance</span>
-              <span class="stat-value" id="routeDistance">--</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Est. Walking Time</span>
-              <span class="stat-value" id="routeTime">--</span>
-            </div>
-          </div>
-        </div>
-      </main>
     </div>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <img src="res/sawari_w.png" alt="Sawari" class="logo-img logo-light" />
+          <img src="res/sawari_b.png" alt="Sawari" class="logo-img logo-dark" />
+        </a>
 
-    <!-- Leaflet Routing Machine JS -->
-    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+        <div class="nav-links" id="navLinks">
+          <a href="#problem" class="nav-link" data-index="01">The Problem</a>
+          <a href="#solution" class="nav-link" data-index="02">How It Works</a>
+          <a href="#features" class="nav-link" data-index="03">Features</a>
+          <a href="#technology" class="nav-link" data-index="04">Technology</a>
+        </div>
 
-    <!-- Custom JS -->
-    <script src="js/app.js"></script>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+          <a href="app.html" class="nav-cta">
+            <span>Find Route</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <div class="hero-gradient"></div>
+        <div class="hero-grid"></div>
+        <div class="parallax-layer parallax-slow">
+          <div class="floating-element el-1"></div>
+          <div class="floating-element el-2"></div>
+        </div>
+        <div class="parallax-layer parallax-medium">
+          <div class="floating-element el-3"></div>
+          <div class="floating-element el-4"></div>
+        </div>
+      </div>
+
+      <div class="hero-wrapper">
+        <!-- Left: Text Content -->
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="tag-dot"></span>
+            <span class="tag-text">PUBLIC TRANSPORT NAVIGATOR</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">
+              <span class="title-word">Navigate</span>
+              <span class="title-word">Nepal's</span>
+            </span>
+            <span class="title-line">
+              <span class="title-word">Buses</span>
+              <span class="title-word title-accent">Effortlessly.</span>
+            </span>
+          </h1>
+
+          <p class="hero-description">
+            From your doorstep to your destination. Find the nearest bus stop, 
+            the right bus route, and step-by-step directions — all in one place.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#solution" class="btn btn-primary">
+              <span>See How It Works</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </a>
+            <a href="app.html" class="btn btn-ghost">
+              <span>Plan Your Trip</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-value" data-count="100">0</span>
+              <span class="stat-label">Bus Routes</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-value" data-count="500" data-suffix="+">0</span>
+              <span class="stat-label">Bus Stops</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-value" data-prefix="<" data-count="5" data-suffix="min">0</span>
+              <span class="stat-label">Find Route</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Illustration -->
+        <div class="hero-illustration">
+          <div class="phone-mockup">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="app-header">
+                  <span class="app-title">Sawari</span>
+                  <div class="app-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>Kathmandu</span>
+                  </div>
+                </div>
+                <div class="app-search">
+                  <div class="search-input from">
+                    <span class="dot dot-green"></span>
+                    <span class="input-text">Kalanki</span>
+                  </div>
+                  <div class="search-line"></div>
+                  <div class="search-input to">
+                    <span class="dot dot-red"></span>
+                    <span class="input-text">Ratnapark</span>
+                  </div>
+                </div>
+                <div class="app-route">
+                  <div class="route-step">
+                    <div class="step-icon walk">🚶</div>
+                    <div class="step-info">
+                      <span class="step-title">Walk to Kalanki Bus Stop</span>
+                      <span class="step-detail">250m · 3 min</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <div class="step-icon bus">🚌</div>
+                    <div class="step-info">
+                      <span class="step-title">Take Bus #12</span>
+                      <span class="step-detail">Kalanki → Ratnapark · 25 min</span>
+                    </div>
+                  </div>
+                  <div class="route-step">
+                    <div class="step-icon destination">📍</div>
+                    <div class="step-info">
+                      <span class="step-title">Arrive at Ratnapark</span>
+                      <span class="step-detail">Walk 100m to destination</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <div class="scroll-indicator">
+          <span class="scroll-line"></span>
+          <span class="scroll-text">Scroll</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section section-problem" id="problem">
+      <div class="parallax-bg">
+        <div class="parallax-layer parallax-slow">
+          <div class="abstract-shape shape-1"></div>
+        </div>
+      </div>
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-index">01</span>
+          <h2 class="section-title">The Problem</h2>
+          <p class="section-subtitle">
+            Navigating public transport in Nepal shouldn't feel like solving a puzzle. 
+            Yet for millions, it's a daily struggle.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-visual">
+            <div class="problem-illustration">
+              <svg viewBox="0 0 400 300" fill="none" class="confusion-svg">
+                <!-- Person looking confused -->
+                <g class="person-confused" transform="translate(180, 100)">
+                  <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <path d="M12 18 Q20 12 28 18" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="14" cy="14" r="2" fill="currentColor"/>
+                  <circle cx="26" cy="14" r="2" fill="currentColor"/>
+                  <!-- Question marks -->
+                  <text x="-20" y="-10" class="question-mark q1" fill="currentColor" font-size="24">?</text>
+                  <text x="45" y="0" class="question-mark q2" fill="currentColor" font-size="20">?</text>
+                  <text x="10" y="-30" class="question-mark q3" fill="currentColor" font-size="28">?</text>
+                </g>
+                
+                <!-- Multiple route lines (confusing) -->
+                <g class="route-lines">
+                  <path d="M50 200 Q100 100 180 150" stroke="var(--color-accent)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                  <path d="M50 220 Q150 180 200 200" stroke="var(--color-gray-500)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                  <path d="M70 180 Q120 220 180 180" stroke="var(--color-gray-400)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                  <path d="M220 150 Q280 100 350 120" stroke="var(--color-gray-500)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                  <path d="M220 170 Q300 200 350 150" stroke="var(--color-gray-400)" stroke-width="2" stroke-dasharray="5 5" opacity="0.5"/>
+                </g>
+
+                <!-- Bus stops scattered -->
+                <circle cx="50" cy="200" r="8" fill="var(--color-accent)" opacity="0.8"/>
+                <circle cx="350" cy="130" r="8" fill="var(--color-accent)" opacity="0.8"/>
+                <circle cx="100" cy="250" r="6" fill="var(--color-gray-500)"/>
+                <circle cx="300" cy="220" r="6" fill="var(--color-gray-500)"/>
+                <circle cx="150" cy="80" r="6" fill="var(--color-gray-500)"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="problem-content">
+            <div class="problem-stats">
+              <div class="problem-stat">
+                <span class="problem-number" data-count="70">0</span>
+                <span class="problem-unit">%</span>
+                <span class="problem-label">of commuters struggle to find correct bus routes</span>
+              </div>
+              <div class="problem-stat">
+                <span class="problem-number" data-count="30">0</span>
+                <span class="problem-unit">min</span>
+                <span class="problem-label">average time wasted asking for directions</span>
+              </div>
+              <div class="problem-stat">
+                <span class="problem-number" data-count="0">0</span>
+                <span class="problem-unit"></span>
+                <span class="problem-label">digital solutions for Nepal's bus network</span>
+              </div>
+            </div>
+
+            <blockquote class="problem-quote">
+              <p>
+                "Which bus goes to Bouddha? Where do I get off? 
+                Why isn't there an app for this?"
+              </p>
+              <cite>— Every commuter in Kathmandu</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section section-solution" id="solution">
+      <div class="parallax-bg">
+        <div class="parallax-layer parallax-medium">
+          <div class="abstract-shape shape-2"></div>
+        </div>
+      </div>
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-index">02</span>
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">
+            Three simple steps to get you from anywhere to anywhere using public transport.
+          </p>
+        </div>
+
+        <div class="solution-flow">
+          <!-- Step 1 -->
+          <div class="flow-step" data-step="1">
+            <div class="step-visual">
+              <div class="step-icon-large">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="35" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <path d="M40 20v40M20 40h40" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="40" cy="40" r="8" fill="var(--color-accent)"/>
+                </svg>
+              </div>
+            </div>
+            <div class="step-content">
+              <div class="step-number">01</div>
+              <h3 class="step-title">Enter Your Location</h3>
+              <p class="step-desc">
+                Type your starting point and destination. Sawari finds the nearest 
+                bus stops automatically using GPS or manual input.
+              </p>
+              <ul class="step-features">
+                <li>GPS auto-detection</li>
+                <li>Search by landmark</li>
+                <li>Save favorite places</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Connector -->
+          <div class="flow-connector">
+            <div class="connector-line"></div>
+            <span class="connector-label">Smart Routing</span>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flow-step" data-step="2">
+            <div class="step-visual">
+              <div class="step-icon-large">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <rect x="15" y="25" width="50" height="30" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="25" cy="55" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="55" cy="55" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <rect x="20" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
+                  <rect x="35" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
+                  <rect x="50" y="30" width="10" height="8" rx="1" fill="var(--color-accent)"/>
+                </svg>
+              </div>
+            </div>
+            <div class="step-content">
+              <div class="step-number">02</div>
+              <h3 class="step-title">Get Bus Routes</h3>
+              <p class="step-desc">
+                See available bus numbers, routes, and estimated travel times. 
+                Multiple options sorted by fastest or fewest transfers.
+              </p>
+              <ul class="step-features">
+                <li>Multiple route options</li>
+                <li>Transfer suggestions</li>
+                <li>Estimated fare</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Connector -->
+          <div class="flow-connector">
+            <div class="connector-line"></div>
+            <span class="connector-label">Navigation</span>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flow-step" data-step="3">
+            <div class="step-visual">
+              <div class="step-icon-large">
+                <svg viewBox="0 0 80 80" fill="none">
+                  <path d="M40 10 L40 70" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+                  <circle cx="40" cy="15" r="6" fill="var(--color-accent)"/>
+                  <circle cx="40" cy="40" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="40" cy="65" r="6" fill="var(--color-accent)"/>
+                  <path d="M20 40 L35 40M45 40 L60 40" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+            <div class="step-content">
+              <div class="step-number">03</div>
+              <h3 class="step-title">Follow Directions</h3>
+              <p class="step-desc">
+                Step-by-step navigation from walking to the bus stop, 
+                which bus to take, where to get off, and how to reach your destination.
+              </p>
+              <ul class="step-features">
+                <li>Turn-by-turn guidance</li>
+                <li>Stop alerts</li>
+                <li>Map visualization</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section section-features" id="features">
+      <div class="parallax-bg">
+        <div class="parallax-layer parallax-fast">
+          <div class="abstract-shape shape-3"></div>
+        </div>
+      </div>
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-index">03</span>
+          <h2 class="section-title">Features</h2>
+          <p class="section-subtitle">
+            Everything you need to navigate Nepal's public transport system.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card feature-main">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="24" cy="24" r="20"/>
+                <path d="M24 14v10l6 6"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Real-Time Route Planning</h3>
+            <p class="feature-desc">
+              Get instant route suggestions based on your location and destination 
+              with accurate travel time estimates.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M24 4v8M24 36v8M4 24h8M36 24h8"/>
+                <circle cx="24" cy="24" r="8"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">GPS Integration</h3>
+            <p class="feature-desc">
+              Automatic location detection to find the nearest bus stops around you.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="8" y="8" width="32" height="32" rx="4"/>
+                <path d="M8 18h32M18 18v22"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Offline Maps</h3>
+            <p class="feature-desc">
+              Download routes for offline access — navigate without internet.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 24h24M24 12v24"/>
+                <circle cx="24" cy="24" r="20"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Multiple Routes</h3>
+            <p class="feature-desc">
+              Compare different route options with transfer points and walking distance.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="24" cy="24" r="16"/>
+                <text x="24" y="30" text-anchor="middle" font-size="16" fill="currentColor">₨</text>
+              </svg>
+            </div>
+            <h3 class="feature-title">Fare Estimation</h3>
+            <p class="feature-desc">
+              Know the approximate fare before you board the bus.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20"/>
+                <path d="M44 4L24 24"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Admin Route Mapping</h3>
+            <p class="feature-desc">
+              Crowdsourced data collection by riding buses and marking real stops.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="section section-technology" id="technology">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-index">04</span>
+          <h2 class="section-title">Technology</h2>
+          <p class="section-subtitle">
+            Built with modern, open-source technologies for reliability and accessibility.
+          </p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">🗺️</div>
+            <h4 class="tech-name">OpenStreetMap</h4>
+            <p class="tech-desc">Free, open-source maps</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🍃</div>
+            <h4 class="tech-name">Leaflet.js</h4>
+            <p class="tech-desc">Interactive map display</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐘</div>
+            <h4 class="tech-name">PHP + MySQL</h4>
+            <p class="tech-desc">Robust backend</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📍</div>
+            <h4 class="tech-name">Geolocation API</h4>
+            <p class="tech-desc">GPS positioning</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🛣️</div>
+            <h4 class="tech-name">OSRM</h4>
+            <p class="tech-desc">Route calculation</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📱</div>
+            <h4 class="tech-name">PWA Ready</h4>
+            <p class="tech-desc">Install on mobile</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-cta" id="start">
+      <div class="cta-bg">
+        <div class="cta-gradient"></div>
+      </div>
+      <div class="section-container">
+        <div class="cta-content">
+          <h2 class="cta-title">Ready to Navigate?</h2>
+          <p class="cta-subtitle">
+            Start your journey with Sawari. No more confusion, no more wasted time.
+          </p>
+          <div class="cta-actions">
+            <a href="app.html" class="btn btn-primary btn-large">
+              <span>Launch App</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="https://github.com" class="btn btn-ghost btn-large" target="_blank">
+              <span>View on GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-main">
+          <div class="footer-brand">
+            <img src="res/sawari_w.png" alt="Sawari" class="footer-logo logo-light" />
+            <img src="res/sawari_b.png" alt="Sawari" class="footer-logo logo-dark" />
+            <p class="footer-tagline">Navigate Nepal's public transport with ease.</p>
+          </div>
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Product</h4>
+              <a href="#solution">How It Works</a>
+              <a href="#features">Features</a>
+              <a href="#technology">Technology</a>
+            </div>
+            <div class="footer-column">
+              <h4>Resources</h4>
+              <a href="#">Documentation</a>
+              <a href="#">API</a>
+              <a href="#">Support</a>
+            </div>
+            <div class="footer-column">
+              <h4>Legal</h4>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="LICENSE">MIT License</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Sawari. Made with ❤️ for Nepal.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/landing.js"></script>
   </body>
 </html>
